@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 use App;
 
 class NavigationController extends Controller
 {
 
-      /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -18,13 +21,9 @@ class NavigationController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function empleado(){
-        $usuarios = App\User::all();
-        return view('usuario/empleado', compact('usuarios'));
-    }
 
-    public function proveedor(){
+    public function proveedor()
+    {
         return view('usuario/proveedor');
     }
 }
