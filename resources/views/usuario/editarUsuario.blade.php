@@ -11,8 +11,9 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Editar Usuario</h1>
+
             <div id="app">
-                <alerts-component></alerts-component>
+                <!--alerts-component>Vue Section</alerts-component-->
             </div>
         </div>
 
@@ -39,7 +40,8 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" name="name" value="{{ $usuario->name }}"
+                                        <input type="text" name="name"
+                                            value="{{ $usuario->name ? $usuario->name : old('name') }}"
                                             class="form-control form-control-user @error('name') is-invalid @enderror"
                                             id="firstName" placeholder="Nombre">
                                         @error('name')
@@ -49,7 +51,8 @@
                                         @enderror
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" name="last_name" value="{{ $usuario->last_name }}"
+                                        <input type="text" name="last_name"
+                                            value="{{ $usuario->last_name ? $usuario->last_name : old('last_name') }}"
                                             class="form-control form-control-user @error('last_name') is-invalid @enderror"
                                             id="lastName" placeholder="Apellido">
                                         @error('last_name')
@@ -72,55 +75,21 @@
                                     </div>
 
                                     <div class="col-sm-6">
-                                        <input id="jvalue" type="hidden" value="{{ $usuario->job }}">
-                                        <select id="selectJob" name="job"
-                                            class="form-control form-control-user @error('job') is-invalid @enderror">
+                                        <input id="jvalue" type="hidden" value="{{ $usuario->role_id }}">
+                                        <select id="selectRole" name="role"
+                                            class="form-control form-control-user @error('role') is-invalid @enderror">
                                             <option value="" class="m-0 font-weight-bold text-dark">Cargo Empleado</option>
-                                            <option value="2">Administrador</option>
-                                            <option value="3">Gerente</option>
-                                            <option value="5">Contador</option>
-                                            <option value="7">Cajero</option>
-                                            <option value="11">Vendedor</option>
-                                            <option value="13">Distribuidor</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
+                                            @endforeach
                                         </select>
-                                        @error('job')
+                                        @error('role')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>
 
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input id="utvalue" type="hidden" value="{{ $usuario->user_type }}">
-                                        <select id="selectUserType" name="user_type"
-                                            class="form-control form-control-user @error('user_type') is-invalid @enderror">
-                                            <option value="" class="m-0 font-weight-bold text-dark" selected>Tipo Usuario
-                                            </option>
-                                            <option value="1">Empleado</option>
-                                            <option value="2">Proveedor</option>
-                                        </select>
-                                        @error('user_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input id="acvalue" type="hidden" value="{{ $usuario->access_level }}">
-                                        <select id="selectAccessLevel" name="access_level"
-                                            class="form-control form-control-user @error('access_level') is-invalid @enderror">
-                                            <option class="m-0 font-weight-bold text-dark" selected>Nivel Acceso</option>
-                                            <option value="1">Alpha</option>
-                                            <option value="2">Beta</option>
-                                            <option value="3">Gamma</option>
-                                            <option value="4">Delta</option>
-                                            <option value="5">Epsilon</option>
-                                            <option value="6">Dseta</option>
-
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -152,16 +121,15 @@
 
         </div>
     </div>
-
     <script>
         var x = document.getElementById("jvalue").value;
-        document.getElementById("selectJob").value = x;
+        document.getElementById("selectRole").value = x;
 
-        var y = document.getElementById("utvalue").value;
+        /*var y = document.getElementById("utvalue").value;
         document.getElementById("selectUserType").value = y;
 
         var z = document.getElementById("acvalue").value;
-        document.getElementById("selectAccessLevel").value = z;
+        document.getElementById("selectAccessLevel").value = z;*/
 
         setTimeout(function() {
 
