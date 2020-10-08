@@ -16,11 +16,17 @@ class CashierRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role['role_name']==='cajero') {
-            return $next($request);
+        $userRole = null;
+
+        if (Auth::check()) {
+            $userRole = Auth::user()->role['role_name'];
+
+            if ($userRole === 'cajero' || $userRole === 'administrador') {
+                return $next($request);
+            }
+
+            return redirect('/home');
         }
-
-        return redirect('/home');
-
+        return redirect('/login');
     }
 }

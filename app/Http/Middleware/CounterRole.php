@@ -16,11 +16,16 @@ class CounterRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role['role_name']==='contador') {
-            return $next($request);
-        }
+        $userRole = null;
 
-        return redirect('/home');
+        if (Auth::check()) {
+            $userRole = Auth::user()->role['role_name'];
+            if (Auth::check() && $userRole === 'contador' || $userRole === 'administrador') {
+                return $next($request);
+            }
+            return redirect('/home');
+        }
+        return redirect('/login');
 
     }
 }

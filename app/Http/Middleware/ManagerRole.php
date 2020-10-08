@@ -16,11 +16,15 @@ class ManagerRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role['role_name']==='administrador') {
-            return $next($request);
+        $userRole = null;
+
+        if (Auth::check()) {
+            $userRole = Auth::user()->role['role_name'];
+            if (Auth::check() && $userRole === 'gerente' || $userRole === 'administrador') {
+                return $next($request);
+            }
+            return redirect('/home');
         }
-
-        return redirect('/home');
-
+        return redirect('/login');
     }
 }

@@ -16,11 +16,15 @@ class CustomerRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role['role_name']==='cliente') {
-            return $next($request);
+        $userRole = null;
+
+        if (Auth::check()) {
+            $userRole = Auth::user()->role['role_name'];
+            if (Auth::check() && $userRole === 'cliente' || $userRole === 'administrador') {
+                return $next($request);
+            }
+            return redirect('/home');
         }
-
-        return redirect('/home');
-
+        return redirect('/login');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Auth;
 
 use Closure;
@@ -16,11 +17,15 @@ class ProviderRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role['role_name']==='proveedor') {
-            return $next($request);
+        $userRole = null;
+
+        if (Auth::check()) {
+            $userRole = Auth::user()->role['role_name'];
+            if (Auth::check() && $userRole === 'proveedor' || $userRole === 'administrador') {
+                return $next($request);
+            }
+            return redirect('/home');
         }
-
-        return redirect('/home');
-
+        return redirect('/login');
     }
 }
