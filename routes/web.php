@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,13 @@ Route::delete('/eliminar/{id}', 'UsuarioController@eliminarUsuario')->name('usua
 
 /** MODULO DE COMPRAS - PROVEEDORES*/
 
-Route::get('oferta/proveedor', 'ofertaController@ofertaProveedor')->name('ofertaProveedor');
+//LO QUE VERA EL PROVEEDOR
+Route::get('oferta/proveedor', 'ofertaProveedorController@ofertaProveedor')->name('ofertaProveedor');
+Route::get('oferta/proveedor/item', 'ofertaProveedorController@ofertaProveedorItem')->name('ofertaProveedorItem');
+
+//LO QUE VERA EL GERENTE
 Route::get('oferta/tienda', 'ofertaController@ofertaTienda')->name('ofertaTienda');
+Route::get('oferta/pedido/tienda', 'ofertaController@pedidoTienda')->name('pedidoTienda');
 
 
 //Route::get('proveedor', 'NavigationController@proveedor')->name('proveedor');
