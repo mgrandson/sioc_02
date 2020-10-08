@@ -7,8 +7,28 @@
     <p class="mb-4"></p>
     <!-- DataTabla Ofertas -->
     <div class="card shadow mb-4">
+        <div class="card-header py-2">
+            <h6 class="m-0 font-weight-bold text-dark">Oferta</h6>
+        </div>
+        <div class="card-body">
+            <div class="form-group text-center table-responsive" style="height: 250px;">
+
+                    <img src="{{ asset('img/shoe_01.png') }}"  id="myImg" class="mh-100 img-fluid img-thumbnail" alt="...">
+
+                    <img src="{{ asset('img/shoe_02.png') }}" id="myImg" class="mh-100 img-fluid img-thumbnail" alt="...">
+
+                    <img src="{{ asset('img/shoe_03.png') }}" id="myImg" class="mh-100 img-fluid img-thumbnail" alt="...">
+
+                    <img src="{{ asset('img/shoe_04.png') }}" id="myImg" class="mh-100 img-fluid img-thumbnail" alt="...">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- DataTabla Ofertas -->
+    <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Historial de Ofertas</h6>
+            <h6 class="m-0 font-weight-bold text-dark">Historial de Ofertas</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -75,6 +95,10 @@
                 </table>
             </div>
         </div>
-    </div>
 
+
+
+
+        <!-- MODAL -->
+        <!-- END MODAL -->
 @endsection
