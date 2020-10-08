@@ -10,8 +10,8 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Gestion de Usuarios</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <!--a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a-->
         </div>
 
         <!-- Content Row - Formulario -->
@@ -35,7 +35,6 @@
                     <div class="col-lg-7">
                         <div class="p-5">
 
-
                             <form action="{{ route('usuario.crear') }}" method="POST">
                                 @csrf
                                 @if (session('mensaje'))
@@ -44,7 +43,6 @@
                                     </div>
                                 @endif
                                 <div class="form-group row">
-
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" name="name" value="{{ old('name') }}"
                                             class="form-control form-control-user @error('name') is-invalid @enderror"
@@ -82,18 +80,14 @@
                                     <div class="col-sm-6">
                                         <!-- input type="hidden" name="old_job" value="{ { old('job') }}"-->
 
-                                        <select id="selectJob" name="job"
-                                            class="form-control form-control-user @error('job') is-invalid @enderror">
+                                        <select id="selectRole" name="role"
+                                            class="form-control form-control-user @error('role') is-invalid @enderror">
                                             <option value="" class="m-0 font-weight-bold text-dark">Cargo Empleado</option>
-
-                                            <option value="2">Administrador</option>
-                                            <option value="3">Gerente</option>
-                                            <option value="5">Contador</option>
-                                            <option value="7">Cajero</option>
-                                            <option value="11">Vendedor</option>
-                                            <option value="13">Distribuidor</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
+                                            @endforeach
                                         </select>
-                                        @error('job')
+                                        @error('role')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -102,41 +96,7 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <!--input type="hidden" name="old_userType" value="{ { old('user_type') }}"-->
-                                        <select id="selectUserType" name="user_type"
-                                            class="form-control form-control-user @error('user_type') is-invalid @enderror">
 
-                                            <option value="" class="m-0 font-weight-bold text-dark">Tipo Usuario</option>
-                                            <option value="1">Empleado</option>
-                                            <option value="2">Proveedor</option>
-                                        </select>
-                                        @error('user_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <!--input type="hidden" name="old_accessLevel" value="{ { old('access_level') }}"-->
-                                        <select id="selectAccessLevel" name="access_level"
-                                            class="form-control form-control-user @error('access_level') is-invalid @enderror">
-                                            <option value="" class="m-0 font-weight-bold text-dark">Nivel Acceso</option>
-                                            <option value="1">Alpha</option>
-                                            <option value="2">Beta</option>
-                                            <option value="3">Gamma</option>
-                                            <option value="4">Delta</option>
-                                            <option value="5">Epsilon</option>
-                                            <option value="6">Dseta</option>
-                                        </select>
-                                        @error('access_level')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" name="password"
@@ -187,9 +147,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Correo</th>
-                                        <th scope="col">Cargo</th>
-                                        <th scope="col">Tipo Usuario</th>
-                                        <th scope="col">Nivel Acceso</th>
+                                        <th scope="col">Rol</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -199,13 +157,7 @@
                                             <th scope="row">{{ $usuario->id }}</th>
                                             <td>{{ $usuario->name }} {{ $usuario->last_name }} </td>
                                             <td>{{ $usuario->email }}</td>
-                                            <td>{{ $usuario->job }}</td>
-                                            <td>
-                                                {{ $usuario->user_type }}
-                                            </td>
-                                            <td>
-                                                {{ $usuario->access_level }}
-                                            </td>
+                                            <td>{{ $usuario->role['role_name'] }}</td>
                                             <td>
                                                 <div>
 
@@ -216,8 +168,8 @@
                                                 </a>
 
                                                 <!--a class="nav-link d-inline" href="">
-                                                    <i class="fas fa-sm fa-trash"></i>
-                                                </a-->
+                                                        <i class="fas fa-sm fa-trash"></i>
+                                                    </a-->
 
                                                 <form action="{{ route('usuario.eleminar', $usuario) }}" method="POST"
                                                     class="d-inline">
