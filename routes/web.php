@@ -32,6 +32,8 @@ Route::get('usuario', 'UsuarioController@usuario')->name('usuario');
 
 Route::get('proveedor', 'UsuarioController@usuarioProveedor')->name('proveedor');
 
+Route::get('proveedor/negocio', 'BusinessController@negocio')->name('negocio');
+
 Route::post('/', 'UsuarioController@crearUsuario')->name('usuario.crear');
 
 Route::get('/editar/{id}', 'UsuarioController@editarUsuario')->name('usuario.editar')->where('id', '[0-9]+');
@@ -43,12 +45,14 @@ Route::delete('/eliminar/{id}', 'UsuarioController@eliminarUsuario')->name('usua
 /** MODULO DE COMPRAS - PROVEEDORES*/
 
 //LO QUE VERA EL PROVEEDOR
-Route::get('oferta/proveedor', 'ofertaProveedorController@ofertaProveedor')->name('ofertaProveedor');
-Route::get('oferta/proveedor/item', 'ofertaProveedorController@ofertaProveedorItem')->name('ofertaProveedorItem');
+Route::get('oferta/proveedor', 'OfertaProveedorController@ofertaProveedor')->name('ofertaProveedor');
+Route::get('oferta/proveedor/item/', 'OfertaProveedorController@crearOferta')->name('ofertaProveedor.crearOferta');
+Route::get('oferta/proveedor/item/add', 'OfertaProveedorController@crearItem')->name('ofertaProveedor.crearItem');
+
 
 //LO QUE VERA EL GERENTE
-Route::get('oferta/tienda', 'ofertaController@ofertaTienda')->name('ofertaTienda');
-Route::get('oferta/pedido/tienda', 'ofertaController@pedidoTienda')->name('pedidoTienda');
+Route::get('oferta/tienda', 'OfertaController@ofertaTienda')->name('ofertaTienda');
+Route::get('oferta/pedido/tienda', 'OfertaController@pedidoTienda')->name('pedidoTienda');
 
 
 //Route::get('proveedor', 'NavigationController@proveedor')->name('proveedor');
