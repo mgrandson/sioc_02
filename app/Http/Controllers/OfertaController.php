@@ -14,16 +14,16 @@ class ofertaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-    }
-
-    public function ofertaProveedor()
-    {
-        return view('proveedor/ofertaProveedor');
+        $this->middleware('manager');
     }
 
     public function ofertaTienda()
     {
         return view('proveedor/ofertaTienda');
+    }
+
+    public function pedidoTienda()
+    {
+        return view('proveedor/pedido');
     }
 }
