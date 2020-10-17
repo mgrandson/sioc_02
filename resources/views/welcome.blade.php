@@ -1,105 +1,145 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-            .full-height {
-                height: 100vh;
-            }
+    <title>{{ config('app.name', 'Laravel') }} | {{ config('app.business', 'CR') }}</title>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Scripts -->
 
-            .position-ref {
-                position: relative;
-            }
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
 
-            .content {
-                text-align: center;
-            }
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-            .title {
-                font-size: 84px;
-            }
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+</head>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+<body>
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+    <nav class="navbar navbar-expand-md navbar-light mb-4 static-top shadow-sm border-bottom-secondary">
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+        <div class="container">
+            <h5 class="m-0 font-weight-bold text-gray d-none d-sm-none d-md-block">
+
+                <h1 class="h3 mb-0 text-gray-800 d-none d-sm-none d-md-block">
+                    {{ config('app.business', 'CR') }}
+                </h1>
+
+                <h5 class="m-0 font-weight-bold text-dark d-block d-sm-block d-md-none">
+                    {{ config('app.business', 'CR') }}
+                </h5>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @if (Route::has('login'))
+
+                            @auth
+
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link" href="{{ url('/home') }}" role="button">
+                                        <span class="mr-2 d-lg-inline text-gray-600">Inicio</span>
+                                    </a>
+                                </li>
+                            @else
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link" href="{{ route('login') }}" role="button">
+                                        <span class="mr-2 d-lg-inline text-gray-600 ">{{ __('Login') }}</span>
+                                    </a>
+                                </li>
+
+                                @if (Route::has('register'))
+                                    <li class="nav-item dropdown no-arrow">
+                                        <a class="nav-link" href="{{ route('register') }}" role="button">
+                                            <span class="mr-2 d-lg-inline text-gray-600 ">{{ __('Register') }}</span>
+                                        </a>
+                                    </li>
+
+                                @endif
+                            @endauth
                         @endif
-                    @endauth
-                </div>
-            @endif
+                    </ul>
 
-            <div class="content">
-                <div class="title m-b-md"-->                    
-                    {{ config('app.name', 'Laravel') }}
-                        <hr/>
-                        <small class="text-muted">
-                            {{ config('app.business', 'CR') }}
-                        </small>
-                    </h3>
                 </div>
+        </div>
+    </nav>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <div class="card-group">
+            <div class="card">
+                <img src="{{ asset('img/shoe_01.png') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Imagen 01</h5>
+                    <p class="card-text">Descripción breve.</p>
                 </div>
+                <!--div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div-->
+            </div>
+            <div class="card">
+                <img src="{{ asset('img/shoe_02.png') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Imagen 02</h5>
+                    <p class="card-text">Descripción breve.</p>
+                </div>
+                <!--div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div-->
+            </div>
+            <div class="card">
+                <img src="{{ asset('img/shoe_03.png') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Imagen 03</h5>
+                    <p class="card-text">Descripción breve.</p>
+                </div>
+                <!--div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div-->
             </div>
         </div>
-    </body>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
+</body>
+
 </html>
