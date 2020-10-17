@@ -10,3 +10,11 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+
+toastr.css
+toastr.js
+vue-gallery-slideshow.js
+
+templateoriginal.blade.php
+welcomeoriginal.blade.php
