@@ -10,8 +10,8 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Gestion de Proveedores</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <!--a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a-->
         </div>
 
         <!-- Content Row -->
@@ -34,8 +34,6 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Cargo</th>
-                                        <th scope="col">Tipo Usuario</th>
-                                        <th scope="col">Nivel Acceso</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -45,13 +43,7 @@
                                             <th scope="row">{{ $usuario->id }}</th>
                                             <td>{{ $usuario->name }} {{ $usuario->last_name }} </td>
                                             <td>{{ $usuario->email }}</td>
-                                            <td>{{ $usuario->job }}</td>
-                                            <td>
-                                                {{ $usuario->user_type }}
-                                            </td>
-                                            <td>
-                                                {{ $usuario->access_level }}
-                                            </td>
+                                            <td>{{ $usuario->role['role_name'] }}</td>
                                             <td>
                                                 <div>
 
@@ -62,8 +54,8 @@
                                                 </a>
 
                                                 <!--a class="nav-link d-inline" href="">
-                                                    <i class="fas fa-sm fa-trash"></i>
-                                                </a-->
+                                                        <i class="fas fa-sm fa-trash"></i>
+                                                    </a-->
 
                                                 <form action="{{ route('usuario.eleminar', $usuario) }}" method="POST"
                                                     class="d-inline">
