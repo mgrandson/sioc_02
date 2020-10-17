@@ -46,6 +46,38 @@
 
             <!-- Main Content -->
             <div id="content">
+
+                @if (session('mensaje'))
+                    <!---- Toast Boostrap ---->
+                    <div aria-live="polite" aria-atomic="true">
+                        <!-- Position it -->
+                        <div style="position: absolute; top: 72px; right: 2px;">
+
+                            <!-- Then put toasts within -->
+                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                                <div class="toast-header">
+                                    <!--img src="..." class="rounded mr-2" alt="..."-->
+                                    <strong class="mr-auto">{{ config('app.name', 'SIOC') }}</strong>
+                                    <!--small class="text-muted">2 seconds ago</small-->
+                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="toast-body">
+                                    @yield('toast-body')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!------------------------ End Toast Boostrap ----------------------------------->
+
+
+
+
+                @yield('message')
+
                 @include('layouts.topbar.topbar')
 
                 <!-- Begin Page Content -->
@@ -129,6 +161,12 @@
     <!--script src="{ { asset('js/demo/chart-area-demo.js') }}"></script-->
     <!--script src="{ { asset('js/demo/chart-pie-demo.js') }}"></script-->
 
+    <script>
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+    </script>
 </body>
 
 </html>
