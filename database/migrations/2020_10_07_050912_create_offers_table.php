@@ -15,8 +15,11 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
-            $table->integer('estado');
+            $table->bigInteger('business_id')->unsigned();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('correlative')->nullable();
+            $table->string('code')->nullable();
+            $table->integer('offer_status')->nullable();
             $table->timestamps();
         });
     }
