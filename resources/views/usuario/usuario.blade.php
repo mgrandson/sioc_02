@@ -172,7 +172,7 @@
                                                         <i class="fas fa-sm fa-trash"></i>
                                                     </a-->
 
-                                            <form action="{{ route('usuario.eleminar', $usuario) }}" method="POST"
+                                            <form action="{{ route('usuario.eliminar', $usuario) }}" method="POST"
                                                 class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
