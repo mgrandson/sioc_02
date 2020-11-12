@@ -40,14 +40,27 @@ Route::get('/editar/{id}', 'UsuarioController@editarUsuario')->name('usuario.edi
 
 Route::put('/editar/{id}','UsuarioController@actualizarUsuario')->name('usuario.actualizar');
 
-Route::delete('/eliminar/{id}', 'UsuarioController@eliminarUsuario')->name('usuario.eleminar');
+Route::delete('/eliminar/{id}', 'UsuarioController@eliminarUsuario')->name('usuario.eliminar');
 
 /** MODULO DE COMPRAS - PROVEEDORES*/
 
 //LO QUE VERA EL PROVEEDOR
-Route::get('oferta/proveedor', 'OfertaProveedorController@ofertaProveedor')->name('ofertaProveedor');
-Route::get('oferta/proveedor/item/', 'OfertaProveedorController@crearOferta')->name('ofertaProveedor.crearOferta');
-Route::get('oferta/proveedor/item/add', 'OfertaProveedorController@crearItem')->name('ofertaProveedor.crearItem');
+Route::get('proveedor/oferta', 'OfertaProveedorController@ofertaProveedor')->name('ofertaProveedor');
+Route::post('proveedor/oferta/add/', 'OfertaProveedorController@crearOferta')->name('ofertaProveedor.crearOferta');
+Route::post('proveedor/oferta/item/add', 'OfertaProveedorController@crearItem')->name('ofertaProveedor.crearItem');
+
+Route::get('proveedor/oferta/editar/{offerId}', 'OfertaProveedorController@editarOferta')->name('oferta.editar')->where('id', '[0-9]+');
+Route::delete('proveedor/oferta/eliminar/{offerId}', 'OfertaProveedorController@eliminarOferta')->name('oferta.eliminar');
+
+Route::get('proveedor/oferta/item/editar/{offerId}/{itemId}', 'OfertaProveedorController@editarItem')->name('item.editar')->where('offerId', '[0-9]+')->where('itemId', '[0-9]+');
+Route::delete('proveedor/oferta/item/eliminar/{offerId}/{itemId}', 'OfertaProveedorController@eliminarItem')->name('item.eliminar');
+
+
+
+//Rutas para las fotografias.
+Route::get('proveedor/oferta/foto', 'PhotoController@index')->name('foto');
+Route::post('image-submit', 'PhotoController@storage');
+Route::delete('image-delete', 'PhotoController@deleteImage');
 
 
 //LO QUE VERA EL GERENTE
