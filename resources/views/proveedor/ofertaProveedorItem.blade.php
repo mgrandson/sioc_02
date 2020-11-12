@@ -36,9 +36,9 @@
                     </div>
                 </div>
                 <hr />
-                <form action="{{ route('ofertaProveedor.crearItem') }}">
-                    <input type="hidden" name="offer_id" value="{{ $oferta->id }}" readonly>
+                <form method="POST" action="{{ route('ofertaProveedor.crearItem') }}">
                     @csrf
+                    <input type="hidden" name="offer_id" value="{{ $oferta->id }}" readonly>                    
                     <div class="form-group row">
                         <div class="col-sm-3">
                             <select name="gender" id="gender"
@@ -160,27 +160,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="text-center">
-                            <img src="{{ asset('img/shoe_01.png') }}" class="img-fluid img-thumbnail" alt="..."
-                                style="width: 200px; height:200px">
-                            <img src="{{ asset('img/shoe_02.png') }}" class="img-fluid img-thumbnail" alt="..."
-                                style="width: 200px; height:200px">
-                            <img src="{{ asset('img/shoe_03.png') }}" class="img-fluid img-thumbnail" alt="..."
-                                style="width: 200px; height:200px">
-                            <img src="{{ asset('img/shoe_04.png') }}" class="img-fluid img-thumbnail" alt="..."
-                                style="width: 200px; height:200px">
-                        </div>
-                        <hr />
-                        <div class="col-sm-6 row">
-                            <input type="file" name="picture_file" class="form-control-file" id="picture_file"
-                                class="form-control form-control-user @error('picture_file') is-invalid @enderror">
-                            @error('picture_file')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+                    <div class="form-group row">
                     </div>
                     <button type="submit" class="btn btn-dark">Agregar</button>
                     <button type="submit" class="btn btn-dark" disabled>Guardar</button>
@@ -204,7 +184,9 @@
                         <th>Cantidad</th>
                         <th>Precio</th>
                         <th>SubTotal</th>
+                        <th>Fotos</th>
                         <th>Acciones</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -222,17 +204,41 @@
                             <td>{{ $item->gender }}</td>
                             <td>{{ $item->style }}</td>
                             <td>{{ $item->size }}</td>
-                            <td>{{ $item->unit }}</td>
+                            <td>{{ $item->unit }} </td>
                             <td>{{ $item->quantity_offered }}</td>
                             <td>${{ number_format($item->price, 2) }}</td>
                             <td>${{ number_format($item->price * $item->quantity_offered, 2) }}</td>
-                            <td>x</td>
+                            <td>
+                                @foreach ($item->photos()->get() as $photo)
+                                {{$photo->path}}
+                                @endforeach
+                            </td>
+                            <td>
+                                <a class="nav-link d-inline"
+                                    href="{{ route('item.editar', [$oferta->id, $item->id]) }}">
+                                    <i class="fas fa-sm fa-pen"></i>
+                                </a>
+
+                                <form action="{{ route('item.eliminar', [$oferta->id, $item->id]) }}" method="POST"
+                                    class="d-inline">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button style="border: none; background: transparent;" type="submit">
+                                        <i class="fas fa-sm fa-trash"></i>
+                                    </button>
+                                </form>
+
+                            </td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="6"></td>
                         <td>Total</td>
                         <td>${{ number_format($total, 2) }}</td>
+
+                        <td>
+
+                        </td>
                         <td></td>
                     </tr>
             </table>
