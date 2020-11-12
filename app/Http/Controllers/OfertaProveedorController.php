@@ -70,28 +70,44 @@ class OfertaProveedorController extends Controller
 
             if ($newItem->save()) {
                 $offer_id = $request->offer_id;
-                $total = $request->price*$request->quantity_offered;
-                $newItem->offers()->attach($offer_id, ['total'=>$total]);
+                $total = $request->price * $request->quantity_offered;
+                $newItem->offers()->attach($offer_id, ['total' => $total]);
                 $success = true;
             }
 
             error_log("\nNUEVO ITEM AGREGADO");
         } catch (\Throwable $th) {
-            //throw $th;
             error_log($th);
         }
 
         if ($success) {
             DB::commit();
             return back()->with('mensaje', 'Nuevo producto agregado a la oferta.');
-            //return back()->withSuccessMessage('Post saved');
         } else {
             DB::rollback();
             return back()->with('mensaje', 'Ha sucedido un error.');
-            //return back()->withErrorMessage('Something went wrong');
         }
     }
 
+    public function editarItem($offerId, $itemId)
+    {
+        $oferta = App\Offer::findOrFail($offerId);
+        $item = App\Item::findOrFail($itemId);
+        $properties = $this->mostrarPropiedadesItem();
+        $fotos = App\Photo::where($itemId);
+        return view('proveedor/foto', compact('oferta'), compact('item'), compact('fotos'), compact('properties'));
+    }
+
+    public function eliminarItem($offerId, $itemId)
+    {
+        $oferta = App\Offer::findOrFail($offerId);
+        $item = App\Item::findOrFail($itemId);
+        $offerCode = $oferta->code;
+        $item->delete();
+        return back()->with('mensaje', 'Item 
+         la oferta' . $offerCode . ' eliminado.');
+    }
+    
     public function ofertaTienda()
     {
         return view('proveedor/ofertaTienda');
@@ -124,9 +140,31 @@ class OfertaProveedorController extends Controller
             }
 
             $properties = $this->mostrarPropiedadesItem();
-            return view('proveedor/ofertaProveedorItem', compact('oferta'), compact('properties'));
+            return back()->with('mensaje', 'Se agrego una nueva oferta.');
         }
         return back()->with('mensaje', 'Primero asocie un negocio.');
+    }
+
+    public function editarOferta($ofertaId)
+    {
+        $oferta = App\Offer::findOrFail($ofertaId);
+        $properties = $this->mostrarPropiedadesItem();
+
+        foreach ($oferta->items as $item) {
+            error_log("ITEM: ".$item->gender);
+            foreach ($item->photos as $photo) {
+                error_log("FOTO: ".$photo->filename);
+            }
+        }
+        return view('proveedor/ofertaProveedorItem', compact('oferta'), compact('properties'));
+    }
+
+    public function eliminarOferta($offerId)
+    {
+        $offer = App\Offer::findOrFail($offerId);
+        $deletedOffer = $offer->code;
+        $offer->delete();
+        return back()->with('mensaje', 'Oferta ' . $deletedOffer . ' eliminada.');
     }
 
     public function comprobarNegocio()
@@ -219,7 +257,7 @@ class OfertaProveedorController extends Controller
         $properties = array($genders, $styles, $sizes, $units);
 
         foreach ($properties[1] as $gender) {
-            error_log("VALOR ENCONTRADO: ".$gender);
+            error_log("VALOR ENCONTRADO: " . $gender);
         }
 
 
