@@ -2,9 +2,9 @@
 
 @section('content')
 
-<!---- Toast Alert Messaje ---->
+    <!---- Toast Alert Messaje ---->
 @section('toast-body')
-        {{ session('mensaje') }}
+    {{ session('mensaje') }}
 @endsection
 
 <!-- Page Heading -->
@@ -18,19 +18,21 @@
     <div class="card-body">
         <div class="col-lg-12">
             <div class="p-2">
-
-                <form action="{{ route('ofertaProveedor.crearOferta') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-dark">
-                        @if ($oferta_activa)
-                            Editar
-                        @else
+                @if ($oferta_activa)
+                    <form action="">
+                        @csrf
+                        <button type="submit" class="btn btn-dark" >Publicar</button>
+                    </form>
+                @else
+                    <form action="{{ route('ofertaProveedor.crearOferta') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-dark">
                             Agregar
-                        @endif
-                    </button>
-                    <button type="submit" class="btn btn-dark" disabled>Guardar</button>
-                    <button type="submit" class="btn btn-dark" disabled>Enviar</button>
-                </form>
+                        </button>
+                    </form>
+                @endif
+
+
             </div>
         </div>
     </div>
@@ -48,34 +50,34 @@
                     <tr>
                         <td>#</td>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
                         <th>Proveedor</th>
                         <th>Fecha</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <td>#</td>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Proveedor</th>
-                        <th>Fecha</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach ($offers as $offer)
                         <tr>
                             <td>{{ $offer->correlative }}</td>
                             <td>{{ $offer->code }}</td>
-                            <td>Descripcion A</td>
                             <td>{{ $offer->business['name'] }}</td>
                             <td>{{ date('d-m-Y', strtotime($offer->created_at)) }}</td>
                             <td>{{ $offer->offer_status }}</td>
-                            <td>x</td>
+                            <td>
+                                <a class="nav-link d-inline" href="{{ route('oferta.editar', $offer->id) }}">
+                                    <i class="fas fa-sm fa-pen"></i>
+                                </a>
+
+                                <form action="{{ route('oferta.eliminar', $offer->id) }}" method="POST" class="d-inline">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button style="border: none; background: transparent;" type="submit">
+                                        <i class="fas fa-sm fa-trash"></i>
+                                    </button>
+                                </form>
+
+                            </td>
                         </tr>
                     @endforeach
             </table>
