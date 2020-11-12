@@ -14,20 +14,23 @@
 
     <title>{{ config('app.name', 'Laravel') }} | {{ config('app.business', 'CR') }}</title>
 
-    <!-- Scripts -->
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('css/fileinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/explorer-fas/theme.css') }}" media="all" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('css/jquery-confirm.min.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -72,9 +75,6 @@
                     </div>
                 @endif
                 <!------------------------ End Toast Boostrap ----------------------------------->
-
-
-
 
                 @yield('message')
 
@@ -143,6 +143,8 @@
         </div>
     </div>
 
+    <!-- JavaScript -->
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('js/app.js') }}"></script>
     <!--script src="{ { asset('vendor/jquery/jquery.min.js') }}"></script-->
@@ -154,6 +156,13 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.js') }}"></script>
 
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+    <!--script src="{ { asset('js/theme.js') }}"></script-->
+    <script src="{{ asset('themes/fas/theme.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('js/jquery-confirm.min.js') }}"></script>
     <!-- Page level plugins -->
     <!--script src="{ { asset('vendor/chart.js/Chart.min.js') }}"></script-->
 
@@ -167,6 +176,9 @@
         });
 
     </script>
+
+@yield('scripts');
+
 </body>
 
 </html>
