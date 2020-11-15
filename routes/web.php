@@ -49,7 +49,7 @@ Route::get('proveedor/oferta', 'OfertaProveedorController@ofertaProveedor')->nam
 Route::post('proveedor/oferta/add/', 'OfertaProveedorController@crearOferta')->name('ofertaProveedor.crearOferta');
 Route::post('proveedor/oferta/item/add', 'OfertaProveedorController@crearItem')->name('ofertaProveedor.crearItem');
 
-Route::get('proveedor/oferta/editar/{offerId}', 'OfertaProveedorController@editarOferta')->name('oferta.editar')->where('id', '[0-9]+');
+Route::get('proveedor/oferta/editar/{offerId}', 'OfertaProveedorController@editarOferta')->name('oferta.editar')->where('offerId', '[0-9]+');
 Route::delete('proveedor/oferta/eliminar/{offerId}', 'OfertaProveedorController@eliminarOferta')->name('oferta.eliminar');
 
 Route::get('proveedor/oferta/item/editar/{offerId}/{itemId}', 'OfertaProveedorController@editarItem')->name('item.editar')->where('offerId', '[0-9]+')->where('itemId', '[0-9]+');
@@ -64,7 +64,9 @@ Route::delete('image-delete', 'PhotoController@deleteImage');
 
 
 //LO QUE VERA EL GERENTE
-Route::get('oferta/tienda', 'OfertaController@ofertaTienda')->name('ofertaTienda');
+Route::get('tienda/oferta', 'OfertaController@ofertaTienda')->name('ofertaTienda');
+Route::get('tienda/oferta/{offerId}', 'OfertaController@verOfertaTienda')->name('verOfertaTienda')->where('offerId', '[0-9]+');
+Route::get('tienda/oferta/item/{offerId}/{itemId}', 'OfertaController@verItemOfertaTienda')->name('verItemOfertaTienda')->where('offerId', '[0-9]+')->where('itemId', '[0-9]+');
 Route::get('oferta/pedido/tienda', 'OfertaController@pedidoTienda')->name('pedidoTienda');
 
 
