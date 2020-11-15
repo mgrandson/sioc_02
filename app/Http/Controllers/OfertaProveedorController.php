@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App;
 use App\Business;
 use App\Offer;
+use App\Photo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OfertaProveedorController extends Controller
 {
@@ -103,9 +105,16 @@ class OfertaProveedorController extends Controller
         $oferta = App\Offer::findOrFail($offerId);
         $item = App\Item::findOrFail($itemId);
         $offerCode = $oferta->code;
+
+        //Borrando fotos del disco.
+        foreach($item->photos()->get() as $photo){
+            error_log($photo->filename);            
+            Storage::delete('public/offer_photos/'.$photo->filename);
+        }
+
+        //Borrando item de la base de datos. 
         $item->delete();
-        return back()->with('mensaje', 'Item 
-         la oferta' . $offerCode . ' eliminado.');
+        return back()->with('mensaje', 'Item de oferta ' . $offerCode . ' eliminado.');
     }
     
     public function ofertaTienda()
@@ -163,6 +172,17 @@ class OfertaProveedorController extends Controller
     {
         $offer = App\Offer::findOrFail($offerId);
         $deletedOffer = $offer->code;
+
+        //Borrando fotos del disco.
+
+        foreach($offer->items()->get() as $item){
+            foreach($item->photos()->get() as $photo){
+                error_log($photo->filename);            
+                Storage::delete('public/offer_photos/'.$photo->filename);
+            }
+            $item->delete();
+        }
+
         $offer->delete();
         return back()->with('mensaje', 'Oferta ' . $deletedOffer . ' eliminada.');
     }
