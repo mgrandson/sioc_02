@@ -60,7 +60,6 @@
          @include('layouts.topbar.alerttopbar')
 
          <!-- Nav Item - Messages -->
-         @include('layouts.topbar.msgtopbar')
 
          <!-- Nav Item - User Information -->
          @include('layouts.topbar.usertopbar')
