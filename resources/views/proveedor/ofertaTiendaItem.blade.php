@@ -6,9 +6,14 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-
-            <h6 class="m-0 font-weight-bold text-dark">
-                Oferta: {{$oferta->code}}. Zapato {{ $item->style }} Para {{ $item->gender }} {{ $item->size }}.
+            <h6>
+                 
+                <span class="m-0 font-weight-bold text-dark">Oferta:</span>
+                {{$oferta->code}} - {{$oferta->business['name'] }}
+                <span class="m-0 font-weight-bold text-dark">Telefono:</span>
+                 {{$oferta->business['phone'] }}.
+                <span class="m-0 font-weight-bold text-dark">Descripción:</span>
+                 Zapato {{ $item->style }} Para {{ $item->gender }} {{ $item->size }}.
             </h6>
         </div>
         <div class="card shadow mb-4">
@@ -20,8 +25,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="card-body">
             <div class="col-lg-12">
                 <div class="p-2">
@@ -30,17 +33,12 @@
                         <input type="hidden" name="offer_id" value="{{ $oferta->id }}" readonly>
 
                         <div class="form-group row">
-
+                            <a class="btn btn-default" href="{{ route('verOfertaTienda', $oferta->id) }}"><span> Regresar</span> </a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-@endsection
-
-@section('scripts')
-
 
 @endsection
