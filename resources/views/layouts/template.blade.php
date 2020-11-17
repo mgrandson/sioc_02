@@ -177,7 +177,7 @@
 
     </script>
 
-@yield('scripts');
+@yield('scripts')
 
 </body>
 
