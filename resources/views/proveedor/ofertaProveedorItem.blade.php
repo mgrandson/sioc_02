@@ -209,9 +209,7 @@
                             <td>${{ number_format($item->price, 2) }}</td>
                             <td>${{ number_format($item->price * $item->quantity_offered, 2) }}</td>
                             <td>
-                                @foreach ($item->photos()->get() as $photo)
-                                {{$photo->path}}
-                                @endforeach
+                                {{count($item->photos()->get())}}
                             </td>
                             <td>
                                 <a class="nav-link d-inline"
