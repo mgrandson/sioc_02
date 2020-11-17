@@ -40,6 +40,14 @@ class ofertaController extends Controller
         return view('proveedor/ofertaTiendaItem', compact('oferta'),compact('item'));
     }
 
+    public function marcarNotificacionLeida(Request $request){
+        $oferta = Offer::findOrFail($request->offerId);
+        auth()->user()->unreadNotifications->when($request->notifId, function($query) use ($request){
+            return $query->where('id', $request->notifId);
+        })->markAsRead();
+        return $this->verOfertaTienda($request->offerId);
+    }
+
     public function pedidoTienda()
     {
         return view('proveedor/pedido');
