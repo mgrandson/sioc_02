@@ -47,6 +47,7 @@ Route::delete('/eliminar/{id}', 'UsuarioController@eliminarUsuario')->name('usua
 //LO QUE VERA EL PROVEEDOR
 Route::get('proveedor/oferta', 'OfertaProveedorController@ofertaProveedor')->name('ofertaProveedor');
 Route::post('proveedor/oferta/add/', 'OfertaProveedorController@crearOferta')->name('ofertaProveedor.crearOferta');
+Route::post('proveedor/oferta/publicar/{offerId}', 'OfertaProveedorController@publicarOferta')->name('ofertaProveedor.publicarOferta')->where('offerId', '[0-9]+');
 Route::post('proveedor/oferta/item/add', 'OfertaProveedorController@crearItem')->name('ofertaProveedor.crearItem');
 
 Route::get('proveedor/oferta/editar/{offerId}', 'OfertaProveedorController@editarOferta')->name('oferta.editar')->where('offerId', '[0-9]+');
@@ -69,6 +70,7 @@ Route::get('tienda/oferta/{offerId}', 'OfertaController@verOfertaTienda')->name(
 Route::get('tienda/oferta/item/{offerId}/{itemId}', 'OfertaController@verItemOfertaTienda')->name('verItemOfertaTienda')->where('offerId', '[0-9]+')->where('itemId', '[0-9]+');
 Route::get('oferta/pedido/tienda', 'OfertaController@pedidoTienda')->name('pedidoTienda');
 
+Route::get('tienda/oferta/nueva/{offerId}/{notifId}', 'OfertaController@marcarNotificacionLeida')->name('marcarNotificacionLeida')->where('offerId', '[0-9]+');
 
 //Route::get('proveedor', 'NavigationController@proveedor')->name('proveedor');
 Route::get('compra', function () {
