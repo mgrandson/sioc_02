@@ -18,20 +18,21 @@
     <div class="card-body">
         <div class="col-lg-12">
             <div class="p-2">
-                @if ($oferta_activa)
-                    <form action="">
-                        @csrf
-                        <button type="submit" class="btn btn-dark" >Publicar</button>
-                    </form>
-                @else
-                    <form action="{{ route('ofertaProveedor.crearOferta') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-dark">
-                            Agregar
-                        </button>
-                    </form>
-                @endif
+                
+                <form action="{{ route('ofertaProveedor.crearOferta') }}" method="POST">
+                    @csrf
+                    @if (!$oferta_activa)
+                    <button type="submit" class="btn btn-dark">
+                        Agregar
+                    </button>
+                    @else
+                    <button type="submit" class="btn btn-dark" disabled="true">
+                        Agregar
+                    </button>
+                    @endif
 
+                </form>                    
+              
 
             </div>
         </div>
@@ -68,15 +69,23 @@
                                 <a class="nav-link d-inline" href="{{ route('oferta.editar', $offer->id) }}">
                                     <i class="fas fa-sm fa-pen"></i>
                                 </a>
-
-                                <form action="{{ route('oferta.eliminar', $offer->id) }}" method="POST" class="d-inline">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button style="border: none; background: transparent;" type="submit">
-                                        <i class="fas fa-sm fa-trash"></i>
-                                    </button>
-                                </form>
-
+                                @if ($offer->offer_status!=2)
+                                    <form action="{{ route('oferta.eliminar', $offer->id) }}" method="POST" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button style="border: none; background: transparent;" type="submit">
+                                            <i class="fas fa-sm fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    @if (count($offer->items)!=0)
+                                        <form action="{{ route('ofertaProveedor.publicarOferta', $offer->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button style="border: none; background: transparent;" type="submit">
+                                                <i class="fas fa-sm fa-share-square"></i>
+                                            </button>
+                                        </form>                                        
+                                    @endif               
+                                @endif
                             </td>
                         </tr>
                     @endforeach
