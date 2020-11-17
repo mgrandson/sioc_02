@@ -8,7 +8,7 @@
     <!-- DataTabla Ofertas -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-dark">Historial de Ofertas</h6>
+        <h6><span class="m-0 font-weight-bold text-dark">Oferta:</span> {{$oferta->code}} - {{$oferta->business['name'] }} - Telefono: {{$oferta->business['phone'] }} </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
