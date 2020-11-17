@@ -7,6 +7,9 @@ use App;
 use App\Business;
 use App\Offer;
 use App\Photo;
+use App\User;
+use App\Events\OfferEvent;
+use App\Notifications\OfferNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -120,6 +123,22 @@ class OfertaProveedorController extends Controller
     public function ofertaTienda()
     {
         return view('proveedor/ofertaTienda');
+    }
+
+    public function publicarOferta($offerId){
+        $offer = Offer::findOrFail($offerId);
+        $offer->offer_status = 2;
+
+        $offer->save();
+
+        /*User::where('role_id', 2)->each(function(User $user) use ($offer){
+            $user->notify(new OfferNotification($offer));
+        });*/
+        //auth()->user()->notify(new OfferNotification($offer));
+
+        event(new OfferEvent($offer));
+
+        return back()->with('mensaje', 'La oferta ha sido publicada.');
     }
 
     public function pedidoTienda()
