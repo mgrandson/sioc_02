@@ -20,7 +20,6 @@
                             <th>Descripcion</th>
                             <th>Proveedor</th>
                             <th>Fecha</th>
-                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -32,14 +31,10 @@
                                 <td></td>
                                 <td>{{ $offer->business['name'] }}</td>
                                 <td>{{ date('d-m-Y', strtotime($offer->created_at)) }}</td>
-                                <td>{{ $offer->offer_status }}</td>
                                 <td>
                                     <a class="nav-link d-inline" href="{{ route('verOfertaTienda', $offer->id) }}">
                                         <i class="fas fa-sm fa-eye"> Ver </i>
-                                    </a>
-    
-
-    
+                                    </a>   
                                 </td>
                             </tr>
                         @endforeach
