@@ -4,7 +4,16 @@
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
-        <span class="badge badge-danger badge-counter">3+</span>
+        @if (count(auth()->user()->unreadNotifications)!=0)
+        <span class="badge badge-danger badge-counter">
+            @if(count(auth()->user()->unreadNotifications)<4)
+                {{count(auth()->user()->unreadNotifications)}}
+            @else
+                3+
+            @endif            
+        </span>                
+        @endif
+        
     </a>
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -12,7 +21,34 @@
         <h6 class="dropdown-header">
             Notificaciones
         </h6>
-        <a class="dropdown-item d-flex align-items-center" href="#">
+        @if (count(auth()->user()->unreadNotifications)!=0)
+            @foreach (auth()->user()->unreadNotifications as $notification)
+                <a class="dropdown-item d-flex align-items-center" href="{{route('marcarNotificacionLeida', [$notification->data['offer'], $notification->id])}}">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-success">
+                            <i class="fas fa-envelope text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">{{ date('d-M-Y', strtotime($notification->created_at)) }}</div>
+                        Oferta: {{$notification->data['code']}}
+                    </div>
+                </a>
+            @endforeach        
+        @else
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                        <i class="fas fa-envelope-open text-white"></i>
+                    </div>
+                </div>
+                <div>   
+                <div class="small text-gray-500">{{ date('d-M-Y', strtotime(now())) }}</div>
+                    No tiene notifaciones nuevas.
+                </div>
+            </a>         
+        @endif
+        <!--a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
                 <div class="icon-circle bg-dark">
                     <i class="fas fa-file-alt text-white"></i>
@@ -44,7 +80,7 @@
                 <div class="small text-gray-500">Septiembre 27, 2020</div>
                 Nuevos Productos Registrados.
             </div>
-        </a>
+        </a-->
         <a class="dropdown-item text-center small text-gray-500" href="#">Todas las notificaciones.</a>
     </div>
 </li>
