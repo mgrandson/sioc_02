@@ -159,13 +159,13 @@ sup {
 }
 
 a {
-  color: #4e73df;
+  color: #222325;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #224abe;
+  color: #676d7c;
   text-decoration: underline;
 }
 
@@ -10205,8 +10205,8 @@ a:focus {
 }
 
 .topbar .dropdown-list .dropdown-header {
-  background-color: #4e73df;
-  border: 1px solid #4e73df;
+  background-color: #5a5c69;
+  border: 1px solid #5a5c69;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   color: #fff;
